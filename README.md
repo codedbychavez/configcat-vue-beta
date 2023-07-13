@@ -1,4 +1,8 @@
-# configcat-vue-beta | Do not use in production
+# configcat-vue-beta | do not use in production 🤯
+
+## Official npm package
+
+[![npm - configcat-vue](https://img.shields.io/badge/npm-configcat--vue-green?logo=npm&logoColor=white)](https://www.npmjs.com/package/configcat-vue)
 
 ## Pre-requisites
 
