@@ -24,7 +24,7 @@ const he = (i, t) => {
   },
   mounted() {
     this.configCatClient.getValueAsync(this.featureKey, !1, this.userObject).then((i) => {
-      this.isFeatureFlagEnabled = i, this.emits("flagValueChanged", i);
+      this.isFeatureFlagEnabled = i, this.$emit("flagValueChanged", i);
     });
   },
   unmounted() {
@@ -139,7 +139,7 @@ var z = function() {
     return l;
   }
   return t;
-}(z), J = function() {
+}(z), $ = function() {
   function i(t, e, n) {
     this.Timestamp = t, this.ConfigJSON = JSON.parse(e), this.HttpETag = n;
   }
@@ -308,7 +308,7 @@ var z = function() {
     this.baseConfig.logger.debug("ConfigServiceBase.fetchLogic() - called.");
     var s = this.baseConfig.baseUrl;
     this.fetchLogicInternal(this.baseConfig, e, n, function(l) {
-      if (r.baseConfig.logger.debug("ConfigServiceBase.fetchLogic(): result.status: " + (l == null ? void 0 : l.status)), !l || l.status != P.Fetched || J.compareEtags(e ?? "", l.eTag)) {
+      if (r.baseConfig.logger.debug("ConfigServiceBase.fetchLogic(): result.status: " + (l == null ? void 0 : l.status)), !l || l.status != P.Fetched || $.compareEtags(e ?? "", l.eTag)) {
         r.baseConfig.logger.debug("ConfigServiceBase.fetchLogic(): result.status != FetchStatus.Fetched or etags are the same. Returning null."), a(null);
         return;
       }
@@ -316,7 +316,7 @@ var z = function() {
         r.baseConfig.logger.debug("ConfigServiceBase.fetchLogic(): no response body. Returning null."), a(null);
         return;
       }
-      var c = new J(new Date().getTime(), l.responseBody, l.eTag), o = c.ConfigJSON[X.Preferences];
+      var c = new $(new Date().getTime(), l.responseBody, l.eTag), o = c.ConfigJSON[X.Preferences];
       if (!o) {
         r.baseConfig.logger.debug("ConfigServiceBase.fetchLogic(): preferences is empty. Returning newConfig."), a(c);
         return;
@@ -501,7 +501,7 @@ var z = function() {
             case 1:
               return r = o.sent(), [4, this.refreshLogicBaseAsync(r, e)];
             case 2:
-              return s = o.sent(), l = !r && s, c = r && s && !J.equals(r, s), this.autoPollConfig.logger.debug("AutoPollConfigService.refreshLogic() - weDontHaveCachedYetButHaveNew: ." + l + ". weHaveBothButTheyDiffers: " + c + "."), (l || c) && this.configChanged(), a(s), [2];
+              return s = o.sent(), l = !r && s, c = r && s && !$.equals(r, s), this.autoPollConfig.logger.debug("AutoPollConfigService.refreshLogic() - weDontHaveCachedYetButHaveNew: ." + l + ". weHaveBothButTheyDiffers: " + c + "."), (l || c) && this.configChanged(), a(s), [2];
           }
         });
       });
@@ -884,7 +884,7 @@ function K(i) {
 var ie = /^[0-9]+$/, k = function(i, t) {
   var e = ie.test(i), n = ie.test(t);
   return e && n && (i = +i, t = +t), i === t ? 0 : e && !n ? -1 : n && !e ? 1 : i < t ? -1 : 1;
-}, $ = 256, B = Number.MAX_SAFE_INTEGER || 9007199254740991, D = [], d = [], g = {}, Re = 0, b = function(i, t) {
+}, J = 256, B = Number.MAX_SAFE_INTEGER || 9007199254740991, D = [], d = [], g = {}, Re = 0, b = function(i, t) {
   var e = Re++;
   g[i] = e, d[e] = t, D[e] = new RegExp(t, void 0);
 };
@@ -914,8 +914,8 @@ var M = function() {
       t = t.version;
     } else if (typeof t != "string")
       throw new TypeError("Invalid Version: ".concat(t));
-    if (t.length > $)
-      throw new TypeError("version is longer than ".concat($, " characters"));
+    if (t.length > J)
+      throw new TypeError("version is longer than ".concat(J, " characters"));
     this.options = e, this.loose = !!e.loose, this.includePrerelease = !!e.includePrerelease;
     var n = t.trim().match(e.loose ? D[g.LOOSE] : D[g.FULL]);
     if (!n)
@@ -1027,7 +1027,7 @@ var M = function() {
     includePrerelease: !1
   }), i instanceof M)
     return i;
-  if (typeof i != "string" || i.length > $)
+  if (typeof i != "string" || i.length > J)
     return null;
   var e = t.loose ? D[g.LOOSE] : D[g.FULL];
   if (!e.test(i))
@@ -1700,10 +1700,10 @@ var G = function() {
   }, i;
 }();
 const Ge = "6.0.1";
-function Je(i, t) {
-  return $e(i, t);
-}
 function $e(i, t) {
+  return Je(i, t);
+}
+function Je(i, t) {
   return We(i, {
     configFetcher: new Ke(),
     cache: new He(),
@@ -1715,7 +1715,7 @@ F.Global, F.EuOnly;
 O.LocalOnly, O.LocalOverRemote, O.RemoteOverLocal;
 const Xe = {
   install: (i, t) => {
-    let e = Je(t.SDKKey, t.clientOptions);
+    let e = $e(t.SDKKey, t.clientOptions);
     i.config.globalProperties.configCatClient = e;
   }
 };
