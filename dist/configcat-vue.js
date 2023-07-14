@@ -1,9 +1,9 @@
-import { openBlock as i, createElementBlock as s, renderSlot as o, createCommentVNode as l } from "vue";
-const c = (e, t) => {
-  const n = e.__vccOpts || e;
-  for (const [r, a] of t)
-    n[r] = a;
-  return n;
+import { openBlock as o, createElementBlock as s, renderSlot as i, createCommentVNode as l } from "vue";
+const c = (e, n) => {
+  const t = e.__vccOpts || e;
+  for (const [r, a] of n)
+    t[r] = a;
+  return t;
 }, u = {
   emits: ["flagValueChanged"],
   props: {
@@ -31,15 +31,17 @@ const c = (e, t) => {
     this.configCatClient.dispose();
   }
 }, f = { key: 0 };
-function d(e, t, n, r, a, g) {
-  return a.isFeatureFlagEnabled ? (i(), s("div", f, [
-    o(e.$slots, "default")
+function d(e, n, t, r, a, g) {
+  return a.isFeatureFlagEnabled ? (o(), s("div", f, [
+    i(e.$slots, "default")
   ])) : l("", !0);
 }
 const C = /* @__PURE__ */ c(u, [["render", d]]), h = {
-  install: (e, t) => {
-    let n = (void 0)(t.SDKKey, t.clientOptions);
-    e.config.globalProperties.configCatClient = n;
+  install: (e, n) => {
+    let t = (void 0)(
+      n.SDKKey
+    );
+    e.config.globalProperties.configCatClient = t;
   }
 };
 export {
