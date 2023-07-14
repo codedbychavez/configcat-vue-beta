@@ -7,7 +7,7 @@ export default {
     if (options.hooks) {
       for (let hook of options.hooks) {
         app.config.globalProperties[`${hook}`] = function(action) {
-          console.log(typeof action);
+          configCatClient.on(`${hook}`, action);
         }
         
       }
