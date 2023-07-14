@@ -1718,10 +1718,8 @@ const Xe = {
     let e = Ge(t.SDKKey, t.clientOptions);
     if (t.hooks)
       for (let n of t.hooks)
-        i.config.globalProperties[`${n}`] = function() {
-          return e.on(`${n}`, () => {
-          });
-        };
+        i.config.globalProperties[`${n}`] = e.on(`${n}`, () => {
+        });
     i.config.globalProperties.configCatClient = e;
   }
 };
