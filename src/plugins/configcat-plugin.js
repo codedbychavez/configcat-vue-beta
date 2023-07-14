@@ -6,7 +6,7 @@ export default {
     // Augment the hooks to the client
     if (options.hooks) {
       for (let hook of options.hooks) {
-        app.config.globalProperties[`${hook}`] = configCatClient.on(`${hook}`, () => {});
+        app.config.globalProperties[`${hook}`] = configCatClient.on;
         
       }
     }
