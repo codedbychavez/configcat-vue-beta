@@ -1717,8 +1717,8 @@ const Xe = {
   install: (i, t) => {
     let e = $e(t.SDKKey, t.clientOptions);
     if (t.hooks)
-      for (hook of t.hooks)
-        console.log("The hook: ", hook);
+      for (const n of t.hooks)
+        console.log("The hook: ", n);
     i.config.globalProperties.configCatClient = e;
   }
 };
