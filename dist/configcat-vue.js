@@ -5,7 +5,7 @@ const he = (i, t) => {
     e[n] = a;
   return e;
 }, ge = {
-  emits: ["flagValueChanged"],
+  emits: ["flagValueChanged", "flagEvaluated"],
   props: {
     featureKey: {
       type: String,
@@ -25,6 +25,8 @@ const he = (i, t) => {
   mounted() {
     this.configCatClient.getValueAsync(this.featureKey, !1, this.userObject).then((i) => {
       this.isFeatureFlagEnabled = i, this.$emit("flagValueChanged", i);
+    }), this.configCatClient.on("flagEvaluated", () => {
+      console.log("Flag evaluated");
     });
   },
   unmounted() {
@@ -139,7 +141,7 @@ var z = function() {
     return l;
   }
   return t;
-}(z), G = function() {
+}(z), $ = function() {
   function i(t, e, n) {
     this.Timestamp = t, this.ConfigJSON = JSON.parse(e), this.HttpETag = n;
   }
@@ -308,7 +310,7 @@ var z = function() {
     this.baseConfig.logger.debug("ConfigServiceBase.fetchLogic() - called.");
     var s = this.baseConfig.baseUrl;
     this.fetchLogicInternal(this.baseConfig, e, n, function(l) {
-      if (r.baseConfig.logger.debug("ConfigServiceBase.fetchLogic(): result.status: " + (l == null ? void 0 : l.status)), !l || l.status != P.Fetched || G.compareEtags(e ?? "", l.eTag)) {
+      if (r.baseConfig.logger.debug("ConfigServiceBase.fetchLogic(): result.status: " + (l == null ? void 0 : l.status)), !l || l.status != P.Fetched || $.compareEtags(e ?? "", l.eTag)) {
         r.baseConfig.logger.debug("ConfigServiceBase.fetchLogic(): result.status != FetchStatus.Fetched or etags are the same. Returning null."), a(null);
         return;
       }
@@ -316,7 +318,7 @@ var z = function() {
         r.baseConfig.logger.debug("ConfigServiceBase.fetchLogic(): no response body. Returning null."), a(null);
         return;
       }
-      var c = new G(new Date().getTime(), l.responseBody, l.eTag), o = c.ConfigJSON[X.Preferences];
+      var c = new $(new Date().getTime(), l.responseBody, l.eTag), o = c.ConfigJSON[X.Preferences];
       if (!o) {
         r.baseConfig.logger.debug("ConfigServiceBase.fetchLogic(): preferences is empty. Returning newConfig."), a(c);
         return;
@@ -501,7 +503,7 @@ var z = function() {
             case 1:
               return r = o.sent(), [4, this.refreshLogicBaseAsync(r, e)];
             case 2:
-              return s = o.sent(), l = !r && s, c = r && s && !G.equals(r, s), this.autoPollConfig.logger.debug("AutoPollConfigService.refreshLogic() - weDontHaveCachedYetButHaveNew: ." + l + ". weHaveBothButTheyDiffers: " + c + "."), (l || c) && this.configChanged(), a(s), [2];
+              return s = o.sent(), l = !r && s, c = r && s && !$.equals(r, s), this.autoPollConfig.logger.debug("AutoPollConfigService.refreshLogic() - weDontHaveCachedYetButHaveNew: ." + l + ". weHaveBothButTheyDiffers: " + c + "."), (l || c) && this.configChanged(), a(s), [2];
           }
         });
       });
@@ -1650,7 +1652,7 @@ var P;
 (function(i) {
   i[i.Fetched = 0] = "Fetched", i[i.NotModified = 1] = "NotModified", i[i.Errored = 2] = "Errored";
 })(P || (P = {}));
-var $ = function() {
+var G = function() {
   function i(t, e, n) {
     this.status = t, this.responseBody = e, this.eTag = n;
   }
@@ -1669,7 +1671,7 @@ var $ = function() {
     a.onreadystatechange = function() {
       if (a.readyState === 4) {
         var r = a.getResponseHeader("ETag");
-        a.status === 200 ? n($.success(a.responseText, r)) : a.status === 304 ? n($.notModified()) : (t.logger.error("Failed to download feature flags & settings from ConfigCat. " + a.status + " - " + a.statusText), n($.error()));
+        a.status === 200 ? n(G.success(a.responseText, r)) : a.status === 304 ? n(G.notModified()) : (t.logger.error("Failed to download feature flags & settings from ConfigCat. " + a.status + " - " + a.statusText), n(G.error()));
       }
     }, a.open("GET", t.getUrl(), !0), a.timeout = t.requestTimeoutMs, a.send(null);
   }, i;
@@ -1699,8 +1701,8 @@ var $ = function() {
     return null;
   }, i;
 }();
-const $e = "6.0.1";
-function Ge(i, t) {
+const Ge = "6.0.1";
+function $e(i, t) {
   return Je(i, t);
 }
 function Je(i, t) {
@@ -1708,19 +1710,14 @@ function Je(i, t) {
     configFetcher: new Ke(),
     cache: new He(),
     sdkType: "ConfigCat-JS",
-    sdkVersion: $e
+    sdkVersion: Ge
   }, t);
 }
 F.Global, F.EuOnly;
 O.LocalOnly, O.LocalOverRemote, O.RemoteOverLocal;
 const Xe = {
   install: (i, t) => {
-    let e = Ge(t.SDKKey, t.clientOptions);
-    if (t.hooks)
-      for (let n of t.hooks)
-        i.config.globalProperties[`${n}`] = function(a) {
-          e.on(`${n}`, a);
-        };
+    let e = $e(t.SDKKey, t.clientOptions);
     i.config.globalProperties.configCatClient = e;
   }
 };
