@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  emits: ['flagValueChanged', 'flagEvaluated'],
+  emits: ['flagValueChanged'],
   props: {
     featureKey: {
       type: String,
@@ -29,10 +29,6 @@ export default {
       this.isFeatureFlagEnabled = value;
       this.$emit('flagValueChanged', value);
     });
-
-    this.configCatClient.on('flagEvaluated', () => {
-      console.log('Flag evaluated');
-    })
   },
   unmounted() {
     this.configCatClient.dispose();
