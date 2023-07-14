@@ -5,7 +5,7 @@ export default {
     let configCatClient = configcat.createClient(options.SDKKey, options.clientOptions);
     // Augment the hooks to the client
     if (options.hooks) {
-      for (hook of options.hook) {
+      for (hook of options.hooks) {
         console.log('The hook: ', hook)
       }
     }

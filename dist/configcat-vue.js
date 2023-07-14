@@ -1716,6 +1716,9 @@ O.LocalOnly, O.LocalOverRemote, O.RemoteOverLocal;
 const Xe = {
   install: (i, t) => {
     let e = $e(t.SDKKey, t.clientOptions);
+    if (t.hooks)
+      for (hook of t.hooks)
+        console.log("The hook: ", hook);
     i.config.globalProperties.configCatClient = e;
   }
 };
