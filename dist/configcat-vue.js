@@ -5,7 +5,7 @@ const he = (i, t) => {
     e[n] = a;
   return e;
 }, ge = {
-  emits: ["flagValueChanged", "flagEvaluated"],
+  emits: ["flagValueChanged"],
   props: {
     featureKey: {
       type: String,
@@ -25,8 +25,6 @@ const he = (i, t) => {
   mounted() {
     this.configCatClient.getValueAsync(this.featureKey, !1, this.userObject).then((i) => {
       this.isFeatureFlagEnabled = i, this.$emit("flagValueChanged", i);
-    }), this.configCatClient.on("flagEvaluated", () => {
-      console.log("Flag evaluated");
     });
   },
   unmounted() {
