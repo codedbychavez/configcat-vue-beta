@@ -1718,7 +1718,7 @@ const Xe = {
     let e = $e(t.SDKKey, t.clientOptions);
     if (t.hooks)
       for (const n of t.hooks)
-        console.log("The hook: ", n);
+        console.log(typeof e);
     i.config.globalProperties.configCatClient = e;
   }
 };
