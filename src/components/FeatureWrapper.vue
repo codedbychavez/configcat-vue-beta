@@ -27,7 +27,9 @@ export default {
     // Check if feature flag is enabled
     this.configCatClient.getValueAsync(this.featureKey, false, this.userObject).then((value) => {
       this.isFeatureFlagEnabled = value;
-      this.$emit('flagValueChanged', value);
+      this.configCatClient.on('configChanged', (response) => {
+        this.$emit('flagValueChanged', response.settings[this.featureKey].value);
+      })
     });
   },
   unmounted() {
