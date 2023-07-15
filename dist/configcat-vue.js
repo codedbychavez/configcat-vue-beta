@@ -26,7 +26,8 @@ const Be = (t, e) => {
     this.configCatClient.getValueAsync(this.featureKey, !1, this.userObject).then((t) => {
       this.isFeatureFlagEnabled = t;
     }), this.configCatClient.on("configChanged", (t) => {
-      this.$emit("flagValueChanged", t.settings[this.featureKey].value);
+      const e = t.settings[this.featureKey].value;
+      this.isFeatureFlagEnabled = e, this.$emit("flagValueChanged", e);
     });
   },
   unmounted() {
