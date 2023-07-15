@@ -35,7 +35,7 @@ export default {
       this.isFeatureFlagEnabled = value;
     });
     this.configCatClient.on('configChanged', (response) => {
-      // This will emit when the feature flag value changes
+      // This will emit when the feature flag value is toggled in the Dashboard
       const featureFlagValue = response.settings[this.featureKey].value;
       this.isFeatureFlagEnabled = featureFlagValue;
       this.$emit('flagValueChanged', featureFlagValue);
